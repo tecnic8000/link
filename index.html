@@ -146,27 +146,37 @@
                 position: absolute;
                 top: 0;
                 width:100%;
+                height: 25px;
                 background: black;
                 color: white;
                 border-radius: 0px;
                 display: flex;
                 align-items: center;
                 justify-content: space-between;
-                font-size: 25px;
+            }
+            #copymark{
+                position: absolute;
+                top: 50%;
+                left: -15%;
+                
+                background: darkblue;
+                color: white;
+                text-orientation: upright;
+                transform:rotate(90deg);
+                z-index:99
             }
         </style>
     </head>
     <body >
         <!-- TOGGLE: VISIBILITY --> 
-         <div id="bar1">
-            <b style='font-size: 15px'>&nbsp;TECNIC 8000</b> 
+        <div id="bar1">
+            <span><!-- SALE BANNER --></span>
             <span>
-                <span id="clock" style="width: 100px; font-family: E1234; font-size: 20px;"></span>
-                &nbsp;<i class="bi bi-eye" id="visibility"></i>&nbsp;&nbsp;
-            </span>
-            
-         </div>
-        <span id='year1' style='position: absolute; background: darkblue;color: white; left:0;top:50%; transform:translateY(-50%); transform:rotate(90deg)'>&copy;2025</span>
+                <span id="clock" style="width: 100px; font-family: E1234; font-size: 15px;"></span>
+                &nbsp;<i class="bi bi-eye" id="visibility" style="font-size:35px"></i>&nbsp;&nbsp;
+            </span>    
+        </div>
+        <span id='copymark'></span>
         <!-- 3D CANVAS -->
         <div class="crt" id="canvas" style="background: black;"></div>
         <!-- LOADER -->
@@ -217,7 +227,7 @@
             switch (link){
                 case '1': console.log(link);
             }
-
+            document.getElementById("copymark").textContent = 'Tecnic8000 \u00A9 '+ new Date().getFullYear();
             //--- SHOP DATA
             fetch('inventory.txt')
                 .then((res) => res.text())
