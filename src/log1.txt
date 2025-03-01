@@ -1,0 +1,35 @@
+/my-react-app
+│── /public
+│   ├── index.html
+│   ├── favicon.ico
+│   ├── manifest.json
+│   ├── robots.txt
+│   └── assets/              # Static assets like images, fonts, etc.
+│
+│── /src
+│   ├── /assets              # Static assets used within components (SVGs, icons, etc.)
+│   ├── /components          # Reusable UI components
+│   ├── /hooks               # Custom React hooks
+│   ├── /layouts             # Layout components (e.g., Navbar, Sidebar, Footer)
+│   ├── /pages               # Page components (e.g., Home, About, Dashboard)
+│   ├── /services            # API service functions (e.g., Axios calls)
+│   ├── /store               # State management (Redux/Zustand/Context API)
+│   ├── /utils               # Utility/helper functions
+│   ├── /styles              # Global styles (CSS, SCSS, Tailwind, etc.)
+│   ├── App.js
+│   ├── index.js
+│   ├── routes.js            # Route configurations (React Router)
+│   ├── theme.js             # Theme settings (MUI/Tailwind)
+│   ├── i18n.js              # Localization settings (if applicable)
+│   └── config.js            # App-wide configuration (API URLs, environment settings)
+│
+│── /tests                   # Unit and integration tests
+│── /node_modules            # Dependencies
+│── .gitignore
+│── package.json
+│── README.md
+│── tailwind.config.js       # If using Tailwind CSS
+│── postcss.config.js        # If using PostCSS
+│── .eslintrc.js             # ESLint configuration
+│── .prettierrc              # Prettier configuration
+│── .env                     # Environment variables
