@@ -1,4 +1,4 @@
-https://shop.ccs.com/
+[CCS](https://shop.ccs.com/)
 https://www.zumiez.com/
 https://www.skatewarehouse.com/
 https://canadaskateshop.com/
