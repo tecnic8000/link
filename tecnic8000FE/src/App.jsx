@@ -1,8 +1,23 @@
 import React from 'react'
+import logo1 from './assets/img/logo_002.png'
+
+import Navbar from './components/Navbar';
+import Product from './components/Product';
 
 const App = () => {
+
+  const loggedIn1 = false;
+
   return (
-    <div className='text-5xl'>App1</div>
+    <div className='text-5xl'>
+    <Navbar/>  
+    {loggedIn1 ? console.log('logged--01') : console.log('guest1')} {/* loggedIN ? IF */}
+    App1
+    <Product size="test9" category="4" brand="A" PriceRange="xxc" />
+    <img src={logo1}/> 
+    
+    </div>
+    
   )
 }
 
