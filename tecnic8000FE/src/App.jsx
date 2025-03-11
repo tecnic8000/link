@@ -15,7 +15,7 @@ const router = createBrowserRouter(
 )
 
 import Navbar from './components/Navbar';
-import Product from './components/Product';
+import Product from './pages/Product';
 import HomePage from './pages/HomePage';
 
 const App = () => {
