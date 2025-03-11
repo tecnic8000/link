@@ -1,8 +1,22 @@
 import React from 'react'
 import logo1 from './assets/img/logo_002.png'
 
+import {
+  Route,
+  createBrowserRouter,
+  createRoutesFromElements,
+  RouterProvider,
+} from 'react-router-dom'
+
+const router = createBrowserRouter(
+  createRoutesFromElements(
+    <Route index element = {<HomePage/>}/>
+  )
+)
+
 import Navbar from './components/Navbar';
 import Product from './components/Product';
+import HomePage from './pages/HomePage';
 
 const App = () => {
 
