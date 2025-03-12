@@ -1,6 +1,16 @@
-import React from 'react'
+import { Suspense } from 'react'
+
+
+
+// 3D preview with ThreeJS
+
 
 const Product = ({size, category, brand, PriceRange}) => {
+
+
+
+
+
   return (
     <div>store here ---- 01
         

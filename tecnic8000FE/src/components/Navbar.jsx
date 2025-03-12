@@ -1,8 +1,13 @@
-import React from 'react'
+import { NavLink } from 'react-router-dom';
+
 
 const Navbar = () => {
   return (
-    <div>Navbar PLACEHOLDER - 01</div>
+    <nav>
+      <NavLink to='/'>TECNIC 8000</NavLink>
+      <NavLink to='/'></NavLink>
+
+    </nav>
   )
 }
 

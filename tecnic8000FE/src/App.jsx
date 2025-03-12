@@ -1,38 +1,72 @@
-import React from 'react'
-import logo1 from './assets/img/logo_002.png'
 
+// import logo1 from './assets/img/logo_002.png'
 import {
   Route,
   createBrowserRouter,
   createRoutesFromElements,
   RouterProvider,
 } from 'react-router-dom'
-
-const router = createBrowserRouter(
-  createRoutesFromElements(
-    <Route index element = {<HomePage/>}/>
-  )
-)
-
-import Navbar from './components/Navbar';
-import Product from './pages/Product';
-import HomePage from './pages/HomePage';
+import MainLayout from './layouts/MainLayout'
+import NotFound from './pages/NotFound'
+import Home from './pages/Home'
+import Item from './pages/Item'
+import Signup from './pages/Signup'
+import Profile from './pages/Profile'
+import Checkout from './pages/Checkout'
+import About from './pages/About'
+import Tracking from './pages/Tracking'
 
 const App = () => {
 
-  const loggedIn1 = false;
+  const router = createBrowserRouter(
+    createRoutesFromElements(
+      <Route path='/' element={<MainLayout/>}>
 
-  return (
+        <Route index element = {<Home/>}/>
+        <Route path = '/signup' element={<Signup/>}/>
+        <Route 
+          path='/profile/:id' 
+          element={<Profile/>}
+        />
+        <Route 
+          path='/item/:id' 
+          element={<Item />}
+          
+        />
+        <Route 
+          path='/checkout/:id' 
+          element={<Checkout/>}
+        />
+        <Route 
+          path='/tracking/:id' 
+          element={<Tracking/>}
+        />
+        <Route path='/about' element={<About/>}/>
+
+
+
+        {/* 404 --------------------------------- */}
+        <Route path='*' element={<NotFound/>}/>
+      </Route>
+      
+    )
+  )
+
+  return <RouterProvider router={router}/>
+
+  // const loggedIn1 = false;
+
+  /*return (
     <div className='text-5xl'>
     <Navbar/>  
-    {loggedIn1 ? console.log('logged--01') : console.log('guest1')} {/* loggedIN ? IF */}
+    {loggedIn1 ? console.log('logged--01') : console.log('guest1')} {/* loggedIN ? IF }
     App1
     <Product size="test9" category="4" brand="A" PriceRange="xxc" />
-    <img src={logo1}/> 
+    {/*<img src={logo1}/> }
     
     </div>
     
-  )
+  )*/
 }
 
 export default App
