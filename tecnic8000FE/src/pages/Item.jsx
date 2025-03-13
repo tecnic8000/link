@@ -1,4 +1,4 @@
-import { useParams, useLoaderData, useNavigate } from 'react-router-dom';
+// import { useParams, useLoaderData, useNavigate } from 'react-router-dom';
 
 const Item = () => {
   return (
