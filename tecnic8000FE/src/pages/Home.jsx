@@ -19,7 +19,7 @@ const Home = () => {
             setItems(response.data.results);
             setTotalPages(response.data.total_pages);  // Get correct total pages from Django
           
-            console.log(response.data.results)
+            console.log(response.data)
           
             console.log('OK --- 01')
         } catch (error) {
