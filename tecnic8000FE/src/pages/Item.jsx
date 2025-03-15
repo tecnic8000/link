@@ -1,8 +1,17 @@
 // import { useParams, useLoaderData, useNavigate } from 'react-router-dom';
+import { Suspense } from 'react'
 
-const Item = () => {
+
+
+// 3D preview with ThreeJS
+
+
+
+const Item = ({size, category, brand, PriceRange}) => {
   return (
-    <div>Item</div>
+    <div>Item
+        {console.log(size, category, brand, PriceRange)}
+    </div>
   )
 }
 
