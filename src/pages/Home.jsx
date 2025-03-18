@@ -18,6 +18,7 @@ const Home = () => {
             // const response = await axios.get(`https://backend1-hbhl.onrender.com/api/store/?page=${page}`);
             setItems(response.data.results);
             setTotalPages(response.data.total_pages);  // Get correct total pages from Django
+
           
             console.log(response.data)
           
@@ -46,7 +47,7 @@ const Home = () => {
               <li key={item.id}>{item.name}</li>
             ))}
           </ul>*/}
-    
+          {console.log(totalPages)}
           {/* Pagination Controls */}
           <div>
             <button disabled={currentPage === 1} onClick={handlePrev}>Prev</button>
