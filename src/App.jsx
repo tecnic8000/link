@@ -16,6 +16,16 @@ import Checkout from './pages/Checkout'
 import About from './pages/About'
 import Tracking from './pages/Tracking'
 
+function Logout() {
+  localStorage.clear()
+  return <Navigate to="/login" />
+}
+
+function RegisterAndLogout() {
+  localStorage.clear()
+  return <Register />
+}
+
 const App = () => {
 
   const router = createBrowserRouter(
