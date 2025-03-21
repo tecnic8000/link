@@ -30,3 +30,5 @@ Thumbs.db
 ehthumbs.db
 Desktop.ini
 *.blend1
+
+.env
