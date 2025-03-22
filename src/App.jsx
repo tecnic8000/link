@@ -20,6 +20,7 @@ import Profile from './pages/Profile'
 import Checkout from './pages/Checkout'
 import About from './pages/About'
 import Tracking from './pages/Tracking'
+import Register from './pages/Register'
 
 import ProtectedRoute from './components/ProtectedRoute'
 
@@ -41,7 +42,9 @@ const App = () => {
         <Route index element = {<Home/>}/>
         <Route path = '/signup' element={<Signup/>}/>
         <Route path = '/login' element={<Login/>}/>
-        <Route path='/profile/' element={<ProtectedRoute> <Profile /> </ProtectedRoute>}/>
+        <Route path ='/profile/' element={<ProtectedRoute> <Profile /> </ProtectedRoute>}/>
+
+        <Route path = 'register' element={ <Register /> }/>
 
         <Route path='/profile2/:id' element={<Profile/>}/>
 
