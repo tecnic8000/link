@@ -5,7 +5,7 @@ const Navbar = () => {
   return (
     <nav>
       <NavLink to='/'>TECNIC 8000</NavLink>
-      <NavLink to='/'></NavLink>
+      <NavLink to='/login/'>login</NavLink>
 
     </nav>
   )

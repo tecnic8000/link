@@ -1,20 +1,27 @@
 
 // import logo1 from './assets/img/logo_002.png'
 import {
+  BrowserRouter,
   Route,
+  Routes,
   createBrowserRouter,
   createRoutesFromElements,
   RouterProvider,
+  Navigate,
 } from 'react-router-dom'
 import MainLayout from './layouts/MainLayout'
+
 import NotFound from './pages/NotFound'
 import Home from './pages/Home'
 import Item from './pages/Item'
 import Signup from './pages/Signup'
+import Login from './pages/Login'
 import Profile from './pages/Profile'
 import Checkout from './pages/Checkout'
 import About from './pages/About'
 import Tracking from './pages/Tracking'
+
+import ProtectedRoute from './components/ProtectedRoute'
 
 function Logout() {
   localStorage.clear()
@@ -23,7 +30,7 @@ function Logout() {
 
 function RegisterAndLogout() {
   localStorage.clear()
-  return <Register />
+  return <Login/>
 }
 
 const App = () => {
@@ -31,31 +38,18 @@ const App = () => {
   const router = createBrowserRouter(
     createRoutesFromElements(
       <Route path='/' element={<MainLayout/>}>
-
         <Route index element = {<Home/>}/>
         <Route path = '/signup' element={<Signup/>}/>
-        <Route 
-          path='/profile/:id' 
-          element={<Profile/>}
-        />
-        <Route 
-          path='/item/:id' 
-          element={<Item />}
-          
-        />
-        <Route 
-          path='/checkout/:id' 
-          element={<Checkout/>}
-        />
-        <Route 
-          path='/tracking/:id' 
-          element={<Tracking/>}
-        />
+        <Route path = '/login' element={<Login/>}/>
+        <Route path='/profile/' element={<ProtectedRoute> <Profile /> </ProtectedRoute>}/>
+
+        <Route path='/profile2/:id' element={<Profile/>}/>
+
+        <Route path='/item/:id' element={<Item />}/>
+        <Route path='/checkout/:id' element={<Checkout/>}/>
+        <Route path='/tracking/:id' element={<Tracking/>}/>
         <Route path='/about' element={<About/>}/>
 
-
-
-        {/* 404 --------------------------------- */}
         <Route path='*' element={<NotFound/>}/>
       </Route>
       
