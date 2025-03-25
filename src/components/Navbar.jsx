@@ -11,10 +11,12 @@ import axios from 'axios';
 const Navbar = () => {
   const navigate = useNavigate();
   const [isAuthorized, setIsAuthorized] = useState(null);
-  useEffect(()=>{
-    console.log("currentURL--", window.location.href)
-  })
+  useEffect(()=>{console.log("currentURL--", window.location.href)})
 
+  useEffect(() => {
+        auth().catch(() => setIsAuthorized(false))
+  }, [])
+  
   // check localStorage
   const refreshToken = async () => {
     const refreshToken = localStorage.getItem(REFRESH_TOKEN);
@@ -53,6 +55,7 @@ const Navbar = () => {
       }
   }
 
+  
   // check httpCookie sess
   const logout1 = async () => {
     try {
@@ -65,7 +68,7 @@ const Navbar = () => {
   };
   
   //
-  console.log('localStorage:',localStorage.access)
+  console.log('localStorage:',localStorage)
   
   console.log(isAuthorized)
   return (
