@@ -32,6 +32,8 @@ function ProtectedRoute({ children }) {
         }
     };
 
+    const auth2 = null;
+
     const auth = async () => {
         const token = localStorage.getItem(ACCESS_TOKEN);
         if (!token) {
