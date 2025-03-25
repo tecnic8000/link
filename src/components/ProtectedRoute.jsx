@@ -6,7 +6,6 @@ import { useState, useEffect } from "react";
 
 
 function ProtectedRoute({ children }) {
-    //console.log('in protected route')
     const [isAuthorized, setIsAuthorized] = useState(null);
 
     useEffect(() => {
@@ -32,7 +31,6 @@ function ProtectedRoute({ children }) {
         }
     };
 
-    const auth2 = null;
 
     const auth = async () => {
         const token = localStorage.getItem(ACCESS_TOKEN);
@@ -40,9 +38,8 @@ function ProtectedRoute({ children }) {
             setIsAuthorized(false);
             return;
         }
-
-        const decoded = jwtDecode(token);
-        const tokenExpiration = decoded.exp;
+        //const decoded = jwtDecode(token);
+        const tokenExpiration = jwtDecode(token).exp;
         const now = Date.now() / 1000; // <-- set to seconds
         console.log(now)
 

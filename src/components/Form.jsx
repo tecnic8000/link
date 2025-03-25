@@ -35,7 +35,6 @@ function Form({ route, method }) {
 
     return (
         <form onSubmit={handleSubmit}>
-            <h1>{name}</h1>
             <input
                 className="form-input"
                 type="text"
@@ -51,9 +50,7 @@ function Form({ route, method }) {
                 placeholder="Password"
             />
             {loading && <LoadingIndicator />}
-            <button className="form-button" type="submit">
-                {name}
-            </button>
+            <button type="submit">{name}</button>
         </form>
     );
 }

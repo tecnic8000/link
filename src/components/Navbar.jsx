@@ -5,43 +5,75 @@ import { REFRESH_TOKEN, ACCESS_TOKEN } from "../constants";
 import { useState, useEffect } from "react";
 import axios from 'axios';
 
-function Logout() {
-  localStorage.clear()
-  return <Navigate to="/login" />
-}
-
-
 
 
 
 const Navbar = () => {
   const navigate = useNavigate();
+  const [isAuthorized, setIsAuthorized] = useState(null);
   useEffect(()=>{
     console.log("currentURL--", window.location.href)
   })
+
+  // check localStorage
+  const refreshToken = async () => {
+    const refreshToken = localStorage.getItem(REFRESH_TOKEN);
+    try {
+        const res = await api.post("/api/token/refresh/", { 
+            refresh: refreshToken, // send POST request to submit refreshToken to get new accessToken
+        });
+        if (res.status === 200) {
+            localStorage.setItem(ACCESS_TOKEN, res.data.access)
+            setIsAuthorized(true)
+            console.log('refresh01')
+        } else {
+            setIsAuthorized(false)
+        }
+    } catch (error) {
+        console.log(error);
+        setIsAuthorized(false);
+    }
+  }
+
+  const auth = async () => {
+    
+    const token = localStorage.getItem(ACCESS_TOKEN);
+        if (!token) {
+            setIsAuthorized(false);
+            return;
+        }
+        const tokenExpiration = jwtDecode(token).exp;
+        const now = Date.now() / 1000; // <-- set to seconds
+        console.log(now)
+        if (tokenExpiration < now) { // if token is expired, get refresh token
+          await refreshToken();
+      } else {
+          setIsAuthorized(true);
+          console.log('loggedin')
+      }
+  }
+
   // check httpCookie sess
   const logout1 = async () => {
     try {
         await axios.post("http://127.0.0.1:8000/api/logout/", {}, { withCredentials: true });
-
         console.log("User logged out successfully");
-        Navigate("/")
+        navigate("/")
     } catch (error) {
         console.log("Logout failed:", error.response?.data);
     }
   };
-  const test1 = () => {
-    console.log('clicked')
-    //<Navigate to="/"/>
-    //Navigate("/")
-  }
-  console.log('localStorage:',localStorage)
+  
+  //
+  console.log('localStorage:',localStorage.access)
+  
+  console.log(isAuthorized)
   return (
     <nav>
       <NavLink to='/'>TECNIC 8000</NavLink>
-
-      <button onClick={()=>{localStorage.clear()}}>clearLocalStorage</button>
-      <button onClick={()=>{navigate('/')}}>test</button>
+      <br/>
+      <button onClick={()=>{localStorage.clear();navigate('/')}}>clearLocalStorage</button>
+      <button onClick={()=>{navigate('/profile')}}>profile</button>
       <button onClick={logout1}>LOG OUT</button>
 
 
