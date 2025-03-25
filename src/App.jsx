@@ -24,10 +24,6 @@ import Register from './pages/Register'
 
 import ProtectedRoute from './components/ProtectedRoute'
 
-function Logout() {
-  localStorage.clear()
-  return <Navigate to="/login" />
-}
 
 function RegisterAndLogout() {
   localStorage.clear()
@@ -42,7 +38,7 @@ const App = () => {
         <Route index element = {<Home/>}/>
         <Route path = '/signup' element={<Signup/>}/>
         <Route path = '/login' element={<Login/>}/>
-        <Route path ='/profile/' element={<ProtectedRoute> <Profile /> </ProtectedRoute>}/>
+        <Route path ='/profile/' element={<ProtectedRoute> <Profile/> </ProtectedRoute>}/>
 
         <Route path = 'register' element={ <Register /> }/>
 
