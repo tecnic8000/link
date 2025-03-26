@@ -20,9 +20,9 @@ const Home = () => {
             setTotalPages(response.data.total_pages);  // Get correct total pages from Django
 
           
-            console.log(response.data)
+            //console.log(response.data)
           
-            console.log('OK --- 01')
+            //console.log('OK --- 01')
         } catch (error) {
           console.error("Error fetching products:", error);
         }
@@ -38,7 +38,7 @@ const Home = () => {
           setCurrentPage(prevPage => prevPage - 1);
         }
       };
-
+    // console.log(totalPages)
     return (
         <div>
           <h2>Products</h2>
@@ -47,7 +47,7 @@ const Home = () => {
               <li key={item.id}>{item.name}</li>
             ))}
           </ul>*/}
-          {console.log(totalPages)}
+          
           {/* Pagination Controls */}
           <div>
             <button disabled={currentPage === 1} onClick={handlePrev}>Prev</button>

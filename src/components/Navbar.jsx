@@ -5,17 +5,11 @@ import { REFRESH_TOKEN, ACCESS_TOKEN } from "../constants";
 import { useState, useEffect } from "react";
 import axios from 'axios';
 
-
-
-
 const Navbar = () => {
   const navigate = useNavigate();
-  const [isAuthorized, setIsAuthorized] = useState(null);
-  useEffect(()=>{console.log("currentURL--", window.location.href)})
-
-  useEffect(() => {
-        auth().catch(() => setIsAuthorized(false))
-  }, [])
+  const [isAuthorized, setIsAuthorized] = useState(false);
+  // useEffect(() => {console.log("currentURL--", window.location.href)})
+  // useEffect(() => {auth().catch(() => setIsAuthorized(false))}, [])
   
   // check localStorage
   const refreshToken = async () => {
@@ -30,30 +24,32 @@ const Navbar = () => {
             console.log('refresh01')
         } else {
             setIsAuthorized(false)
+            console.log('refreshFailed') //
         }
     } catch (error) {
         console.log(error);
         setIsAuthorized(false);
     }
   }
-
-  const auth = async () => {
-    
+  
+  const auth = async () => { 
     const token = localStorage.getItem(ACCESS_TOKEN);
         if (!token) {
             setIsAuthorized(false);
+            console.log('notoken')
             return;
         }
-        const tokenExpiration = jwtDecode(token).exp;
+        //const tokenExpiration = jwtDecode(token).exp;
         const now = Date.now() / 1000; // <-- set to seconds
-        console.log(now)
-        if (tokenExpiration < now) { // if token is expired, get refresh token
+        if (jwtDecode(token).exp < now) { // if token is expired, get refresh token
           await refreshToken();
       } else {
           setIsAuthorized(true);
           console.log('loggedin')
       }
   }
+
+  
 
   
   // check httpCookie sess
@@ -68,15 +64,15 @@ const Navbar = () => {
   };
   
   //
-  console.log('localStorage:',localStorage)
+  //console.log('localStorage:',localStorage)
   
-  console.log(isAuthorized)
+  console.log('AUTHCHECK-',isAuthorized)
   return (
     <nav>
       <NavLink to='/'>TECNIC 8000</NavLink>
       <br/>
-      <button onClick={()=>{localStorage.clear();navigate('/')}}>clearLocalStorage</button>
       <button onClick={()=>{navigate('/profile')}}>profile</button>
+      {isAuthorized ? <button>LOG OUT</button> : <button> LOG IN</button>}
       <button onClick={logout1}>LOG OUT</button>
 
 
