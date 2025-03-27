@@ -1,6 +1,8 @@
 import { NavLink, Navigate, useNavigate } from 'react-router-dom';
 import { jwtDecode } from "jwt-decode";
 import api from "../api";
+import API from "../axiosConfig"
+import { getProfile } from '../axiosConfig';
 import { REFRESH_TOKEN, ACCESS_TOKEN } from "../constants";
 import { useState, useEffect } from "react";
 import axios from 'axios';
@@ -8,10 +10,32 @@ import axios from 'axios';
 const Navbar = () => {
   const navigate = useNavigate();
   const [isAuthorized, setIsAuthorized] = useState(false);
-  // useEffect(() => {console.log("currentURL--", window.location.href)})
-  // useEffect(() => {auth().catch(() => setIsAuthorized(false))}, [])
-  
+  const [user, setUser] = useState(null)
+  //useEffect(() => {console.log("currentURL--", window.location.href)})
+  //useEffect(() => {auth().catch(() => setIsAuthorized(false))}, [])
+  //useEffect(() => {checkAuth().catch(() => setIsAuthorized(false))}, [])
+  useEffect(() => {
+		axios.get('http://127.0.0.1:8000/api/profile2/', { withCredentials: true })
+        .then(response => {
+            console.log(response.data);
+        })
+        .catch(error => {
+            console.error(error);
+        });
+	}, []);
+
   // check localStorage
+  /*const checkAuth = async () => {
+    try {
+        await API.get("/check-auth/");
+        return true;  // User is authenticated
+    } catch (error) {
+      console.log(error)
+      return false; // Not authenticated
+    }
+  }
+
+
   const refreshToken = async () => {
     const refreshToken = localStorage.getItem(REFRESH_TOKEN);
     try {
@@ -49,13 +73,11 @@ const Navbar = () => {
       }
   }
 
-  
-
-  
-  // check httpCookie sess
+  // check httpCookie sess*/
   const logout1 = async () => {
     try {
-        await axios.post("http://127.0.0.1:8000/api/logout/", {}, { withCredentials: true });
+        await API.post("/logout/", {}, { withCredentials: true });
+        //await axios.post("http://127.0.0.1:8000/api/logout/", {}, { withCredentials: true });
         console.log("User logged out successfully");
         navigate("/")
     } catch (error) {
@@ -63,21 +85,18 @@ const Navbar = () => {
     }
   };
   
-  //
-  //console.log('localStorage:',localStorage)
   
+  //console.log('localStorage:',localStorage)  
   console.log('AUTHCHECK-',isAuthorized)
   return (
     <nav>
       <NavLink to='/'>TECNIC 8000</NavLink>
       <br/>
       <button onClick={()=>{navigate('/profile')}}>profile</button>
-      {isAuthorized ? <button>LOG OUT</button> : <button> LOG IN</button>}
+      {isAuthorized ? <button>LOG OUT</button> : <NavLink to='/login/'>LOG IN</NavLink>}
+
+      
       <button onClick={logout1}>LOG OUT</button>
-
-
-      <NavLink to='/login/'>login</NavLink>
-
     </nav>
   )
 }

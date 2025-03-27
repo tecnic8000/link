@@ -1,6 +1,7 @@
 import { useState } from "react";
-import api from "../api";
-//import API
+//import api from "../api";
+import { loginUser, signupUser } from '../axiosConfig'
+
 import { useNavigate } from "react-router-dom";
 import { ACCESS_TOKEN, REFRESH_TOKEN } from "../constants";
 //import "../styles/Form.css"
@@ -15,6 +16,37 @@ function Form({ route, method }) {
     const name = method === "login" ? "Login" : "Register";
 
     const handleSubmit = async (e) => {
+        
+        setLoading(true)
+        e.preventDefault()
+
+        if (method === 'login'){
+            try {
+                await API.post("/login/", {username, password})
+                console.log('logged in')
+                return navigate("/");
+            } catch (error) {
+                console.log(error)
+                return false
+            } finally {
+                setLoading(false)
+            }
+        } else {
+            try {
+                await API.post(route, {username, password})
+                return navigate("/login");
+            } catch (error) {
+                console.log(error)
+                return false
+            } finally {
+                setLoading(false)
+            }
+        }
+
+
+    }
+
+    /*const handleSubmit = async (e) => {
         setLoading(true);
         e.preventDefault();
 
@@ -32,19 +64,17 @@ function Form({ route, method }) {
         } finally {
             setLoading(false)
         }
-    };
+    };*/
 
     return (
         <form onSubmit={handleSubmit}>
             <input
-                className="form-input"
                 type="text"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
                 placeholder="Username"
             />
             <input
-                className="form-input"
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
