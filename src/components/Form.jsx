@@ -16,25 +16,25 @@ function Form({ route, method }) {
     const name = method === "login" ? "Login" : "Register";
 
     const handleSubmit = async (e) => {
-        
+
         setLoading(true)
         e.preventDefault()
 
         if (method === 'login'){
             try {
-                await API.post("/login/", {username, password})
-                console.log('logged in')
-                return navigate("/");
+                await loginUser(username, password)
+                console.log('logged in, check cookies')
             } catch (error) {
-                console.log(error)
+                console.log('failed01:',error)
                 return false
             } finally {
                 setLoading(false)
             }
         } else {
             try {
-                await API.post(route, {username, password})
-                return navigate("/login");
+                await signupUser(username,'trontest3', password)
+                console.log('registered')
+                //return navigate("/login");
             } catch (error) {
                 console.log(error)
                 return false

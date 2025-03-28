@@ -1,4 +1,6 @@
 import axios from 'axios'
+axios.defaults.withCredentials = true;  // Ensure cookies are sent with requests
+
 
 const API = axios.create({
     baseURL: "http://127.0.0.1:8000/api",
@@ -7,13 +9,15 @@ const API = axios.create({
 
 export const signupUser = async (email, username, password) => {
     try {
-        await API.post('/signup/', {email, username, password}).then(response => {return response.data})
+        //console.log('withCredentials:', API.defaults.withCredentials);
+        await API.post('/register/', {email, username, password}).then(response => {return response.data})
     }
     catch (error) {console.log(error) ; throw new Error("Signup failed!");}
 }
 
 export const loginUser = async (email, password) => {
     try {
+        //console.log('withCredentials:', API.defaults.withCredentials);
         await API.post('/login/', {email, password}).then(response => {return response.data})
     }
     catch (error) {console.log(error) ; throw new Error("Login failed!");}

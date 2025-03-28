@@ -1,29 +1,35 @@
 import { NavLink, Navigate, useNavigate } from 'react-router-dom';
-import { jwtDecode } from "jwt-decode";
-import api from "../api";
-import API from "../axiosConfig"
-import { getProfile } from '../axiosConfig';
-import { REFRESH_TOKEN, ACCESS_TOKEN } from "../constants";
+//import { jwtDecode } from "jwt-decode";
+//import api from "../api";
+//import API from "../axiosConfig"
+import { getProfile, refreshToken, logoutUser } from '../axiosConfig';
+//import { REFRESH_TOKEN, ACCESS_TOKEN } from "../constants";
 import { useState, useEffect } from "react";
-import axios from 'axios';
+//import axios from 'axios';
 
 const Navbar = () => {
   const navigate = useNavigate();
-  const [isAuthorized, setIsAuthorized] = useState(false);
-  const [user, setUser] = useState(null)
+  //const [isAuthorized, setIsAuthorized] = useState(false);
+  //const [user, setUser] = useState(null)
   //useEffect(() => {console.log("currentURL--", window.location.href)})
   //useEffect(() => {auth().catch(() => setIsAuthorized(false))}, [])
   //useEffect(() => {checkAuth().catch(() => setIsAuthorized(false))}, [])
-  useEffect(() => {
+  /*useEffect(() => {
 		axios.get('http://127.0.0.1:8000/api/profile2/', { withCredentials: true })
-        .then(response => {
-            console.log(response.data);
-        })
-        .catch(error => {
-            console.error(error);
-        });
+      .then(response => {console.log(response.data);})
+      .catch(error => {console.error(error);});
+	}, []);*/
+  const [user, setUser] = useState(null);
+  useEffect(() => {
+		const getUser = async () => {
+			const userDetails = await getProfile();
+			if (userDetails) {
+				setUser(userDetails);
+			}
+		};
+		getUser();
 	}, []);
-
+  
   // check localStorage
   /*const checkAuth = async () => {
     try {
@@ -74,7 +80,7 @@ const Navbar = () => {
   }
 
   // check httpCookie sess*/
-  const logout1 = async () => {
+  /*const logout1 = async () => {
     try {
         await API.post("/logout/", {}, { withCredentials: true });
         //await axios.post("http://127.0.0.1:8000/api/logout/", {}, { withCredentials: true });
@@ -83,20 +89,22 @@ const Navbar = () => {
     } catch (error) {
         console.log("Logout failed:", error.response?.data);
     }
-  };
+  };*/
   
   
   //console.log('localStorage:',localStorage)  
-  console.log('AUTHCHECK-',isAuthorized)
+  //console.log('AUTHCHECK-',isAuthorized)
   return (
     <nav>
       <NavLink to='/'>TECNIC 8000</NavLink>
       <br/>
       <button onClick={()=>{navigate('/profile')}}>profile</button>
-      {isAuthorized ? <button>LOG OUT</button> : <NavLink to='/login/'>LOG IN</NavLink>}
+      <button onClick={async ()=>{await refreshToken()}}>token1</button>
+      <button onClick={async ()=>{await logoutUser()}}>LOG OUT1</button>
+      {/*isAuthorized ? <button>LOG OUT</button> : <NavLink to='/login/'>LOG IN</NavLink>*/}
 
       
-      <button onClick={logout1}>LOG OUT</button>
+      
     </nav>
   )
 }
