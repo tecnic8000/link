@@ -16,20 +16,13 @@ function Form({ route, method }) {
     const name = method === "login" ? "Login" : "Register";
 
     const handleSubmit = async (e) => {
-
         setLoading(true)
         e.preventDefault()
 
         if (method === 'login'){
-            try {
-                await loginUser(username, password)
-                console.log('logged in, check cookies')
-            } catch (error) {
-                console.log('failed01:',error)
-                return false
-            } finally {
-                setLoading(false)
-            }
+            await loginUser(username, password)
+            .catch (error=>{console.log(error)}) 
+            .finally(setLoading(false))
         } else {
             try {
                 await signupUser(username,'trontest3', password)

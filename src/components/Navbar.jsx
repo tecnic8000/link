@@ -9,7 +9,7 @@ import { useState, useEffect } from "react";
 
 const Navbar = () => {
   const navigate = useNavigate();
-  //const [isAuthorized, setIsAuthorized] = useState(false);
+  
   //useEffect(() => {console.log("currentURL--", window.location.href)})
   //useEffect(() => {auth().catch(() => setIsAuthorized(false))}, [])
   //useEffect(() => {checkAuth().catch(() => setIsAuthorized(false))}, [])
@@ -19,15 +19,19 @@ const Navbar = () => {
       .catch(error => {console.error(error);});
 	}, []);*/
   const [user, setUser] = useState(null);
-  const test1 = null;
-  const getUser = async () => {
-    const userDetails = await getProfile();
+  useEffect(() => {
+		const getUser = async () => {
+			const userDetails = await getProfile().then(response => {console.log(response);return response});
+      console.log("userDetails", userDetails);
 			if (userDetails) {
 				setUser(userDetails);
 			}
-  };
-  useEffect(() => {getUser()}, []);
-  console.log("userT", test1)
+		};
+		getUser();
+    //setUser(getProfile());
+    console.log("user1", user);
+	}, []);
+  
   // check localStorage
   /*const checkAuth = async () => {
     try {
@@ -37,19 +41,7 @@ const Navbar = () => {
       console.log(error)
       return false; // Not authenticated
     }
-  }
-
-  // check httpCookie sess*/
-  /*const logout1 = async () => {
-    try {
-        await API.post("/logout/", {}, { withCredentials: true });
-        //await axios.post("http://127.0.0.1:8000/api/logout/", {}, { withCredentials: true });
-        console.log("User logged out successfully");
-        navigate("/")
-    } catch (error) {
-        console.log("Logout failed:", error.response?.data);
-    }
-  };*/
+  }*/
   return (
     <nav>
       <NavLink to='/'>TECNIC 8000</NavLink>
@@ -59,7 +51,7 @@ const Navbar = () => {
       <button onClick={async ()=>{await refreshToken()}}>token1</button>
       <button onClick={async ()=>{await logoutUser()}}>LOG OUT1</button>
 
-      <button onClick={async ()=>{getUser()}}>test STATE output</button>
+      <button>localLogout</button>
     </nav>
   )
 }
