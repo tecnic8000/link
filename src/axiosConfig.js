@@ -1,47 +1,39 @@
 import axios from 'axios'
-axios.defaults.withCredentials = true;  // Ensure cookies are sent with requests
-
 
 const API = axios.create({
     baseURL: "http://127.0.0.1:8000/api",
+    //headers: {Authorization: `Bearer }`},
     withCredentials: true,  // Send cookies with requests
 });
 
 export const signupUser = async (email, username, password) => {
-    try {
-        //console.log('withCredentials:', API.defaults.withCredentials);
-        await API.post('/register/', {email, username, password}).then(response => {return response.data})
-    }
-    catch (error) {console.log(error) ; throw new Error("Signup failed!");}
+    await API.post('/register/', {email, username, password})
+    .then(response => {return response.data})
+    .catch(error=>{console.log(error) ; throw new Error("Signup failed!");}) 
 }
 
 export const loginUser = async (email, password) => {
-    try {
-        //console.log('withCredentials:', API.defaults.withCredentials);
-        await API.post('/login/', {email, password}).then(response => {return response.data})
-    }
-    catch (error) {console.log(error) ; throw new Error("Login failed!");}
+    await API.post('/login/', {email, password})
+    .then(response => {console.log(response.data);return response.data})
+    .catch (error=>{console.log(error)}) 
 }
 
 export const getProfile = async () => {
-    try {
-        await API.get('/profile/').then(response => {return response.data})
-    }
-    catch (error) {console.log(error) ; throw new Error("GetProfile failed!");}
+    await API.get('/profile/')
+    .then(response =>{console.log(response.data.username);return response.data})
+    .catch(error=>{console.log(error)}) 
 }
 
 export const logoutUser = async () => {
-    try {
-        await API.post('/logout/', null).then(response => {return response.data})
-    }
-    catch (error) {console.log(error) ; throw new Error("Logout failed!");}
+    await API.post('/logout/')
+    .then(response => {console.log(response.data);return response.data})
+    .catch(error=>{console.log(error)}) 
 }
 
 export const refreshToken = async () => {
-    try {
-        await API.post('/refresh/', null).then(response => {return response.data})
-    }
-    catch (error) {console.log(error) ; throw new Error("RefreshToken failed!");}
+    await API.post('/refresh/')
+    .then(response => {console.log('tokenRefreshed');return response.data})
+    .catch (error=> {console.log(error)})
 }
 
 // 

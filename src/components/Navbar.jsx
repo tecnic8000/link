@@ -10,7 +10,6 @@ import { useState, useEffect } from "react";
 const Navbar = () => {
   const navigate = useNavigate();
   //const [isAuthorized, setIsAuthorized] = useState(false);
-  //const [user, setUser] = useState(null)
   //useEffect(() => {console.log("currentURL--", window.location.href)})
   //useEffect(() => {auth().catch(() => setIsAuthorized(false))}, [])
   //useEffect(() => {checkAuth().catch(() => setIsAuthorized(false))}, [])
@@ -20,16 +19,15 @@ const Navbar = () => {
       .catch(error => {console.error(error);});
 	}, []);*/
   const [user, setUser] = useState(null);
-  useEffect(() => {
-		const getUser = async () => {
-			const userDetails = await getProfile();
+  const test1 = null;
+  const getUser = async () => {
+    const userDetails = await getProfile();
 			if (userDetails) {
 				setUser(userDetails);
 			}
-		};
-		getUser();
-	}, []);
-  
+  };
+  useEffect(() => {getUser()}, []);
+  console.log("userT", test1)
   // check localStorage
   /*const checkAuth = async () => {
     try {
@@ -39,44 +37,6 @@ const Navbar = () => {
       console.log(error)
       return false; // Not authenticated
     }
-  }
-
-
-  const refreshToken = async () => {
-    const refreshToken = localStorage.getItem(REFRESH_TOKEN);
-    try {
-        const res = await api.post("/api/token/refresh/", { 
-            refresh: refreshToken, // send POST request to submit refreshToken to get new accessToken
-        });
-        if (res.status === 200) {
-            localStorage.setItem(ACCESS_TOKEN, res.data.access)
-            setIsAuthorized(true)
-            console.log('refresh01')
-        } else {
-            setIsAuthorized(false)
-            console.log('refreshFailed') //
-        }
-    } catch (error) {
-        console.log(error);
-        setIsAuthorized(false);
-    }
-  }
-  
-  const auth = async () => { 
-    const token = localStorage.getItem(ACCESS_TOKEN);
-        if (!token) {
-            setIsAuthorized(false);
-            console.log('notoken')
-            return;
-        }
-        //const tokenExpiration = jwtDecode(token).exp;
-        const now = Date.now() / 1000; // <-- set to seconds
-        if (jwtDecode(token).exp < now) { // if token is expired, get refresh token
-          await refreshToken();
-      } else {
-          setIsAuthorized(true);
-          console.log('loggedin')
-      }
   }
 
   // check httpCookie sess*/
@@ -90,21 +50,16 @@ const Navbar = () => {
         console.log("Logout failed:", error.response?.data);
     }
   };*/
-  
-  
-  //console.log('localStorage:',localStorage)  
-  //console.log('AUTHCHECK-',isAuthorized)
   return (
     <nav>
       <NavLink to='/'>TECNIC 8000</NavLink>
       <br/>
       <button onClick={()=>{navigate('/profile')}}>profile</button>
+      <button onClick={async ()=>{await getProfile()}}>getUser</button>
       <button onClick={async ()=>{await refreshToken()}}>token1</button>
       <button onClick={async ()=>{await logoutUser()}}>LOG OUT1</button>
-      {/*isAuthorized ? <button>LOG OUT</button> : <NavLink to='/login/'>LOG IN</NavLink>*/}
 
-      
-      
+      <button onClick={async ()=>{getUser()}}>test STATE output</button>
     </nav>
   )
 }
