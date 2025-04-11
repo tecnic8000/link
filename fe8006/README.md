@@ -1,4 +1,4 @@
-# fe8003
+# fe8006
 
 This template should help get you started developing with Vue 3 in Vite.
 
@@ -38,23 +38,20 @@ npm run build
 npm run test:unit
 ```
 
-### Run End-to-End Tests with [Playwright](https://playwright.dev)
+### Run End-to-End Tests with [Cypress](https://www.cypress.io/)
 
 ```sh
-# Install browsers for the first run
-npx playwright install
+npm run test:e2e:dev
+```
 
-# When testing on CI, must build the project first
+This runs the end-to-end tests against the Vite development server.
+It is much faster than the production build.
+
+But it's still recommended to test the production build with `test:e2e` before deploying (e.g. in CI environments):
+
+```sh
 npm run build
-
-# Runs the end-to-end tests
 npm run test:e2e
-# Runs the tests only on Chromium
-npm run test:e2e -- --project=chromium
-# Runs the tests of a specific file
-npm run test:e2e -- tests/example.spec.ts
-# Runs the tests in debug mode
-npm run test:e2e -- --debug
 ```
 
 ### Lint with [ESLint](https://eslint.org/)
